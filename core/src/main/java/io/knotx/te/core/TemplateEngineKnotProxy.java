@@ -21,6 +21,7 @@ import io.knotx.dataobjects.KnotContext;
 import io.knotx.knot.AbstractKnotProxy;
 import io.knotx.te.api.TemplateEngine;
 import io.knotx.te.core.exception.UnsupportedEngineException;
+import io.knotx.te.core.fragment.DebugModeDecorator;
 import io.knotx.te.core.fragment.FragmentContext;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.reactivex.Observable;
@@ -39,15 +40,24 @@ public class TemplateEngineKnotProxy extends AbstractKnotProxy {
 
   private final TemplateEngineKnotOptions options;
   private final Map<String, TemplateEngine> engines;
+  private final DebugModeDecorator debugModeDecorator;
 
   TemplateEngineKnotProxy(TemplateEngineKnotOptions options,
       Map<String, TemplateEngine> templateEngines) {
     this.options = options;
     this.engines = templateEngines;
+    this.debugModeDecorator = new DebugModeDecorator();
+    if (options.isDebugMode()) {
+      debugModeDecorator.init();
+    }
   }
 
   @Override
   protected Single<KnotContext> processRequest(KnotContext knotContext) {
+    boolean isDebugMode = isDebugOn(knotContext);
+    if (isDebugMode) {
+      debugModeDecorator.addGlobalStyle(knotContext);
+    }
     return Optional.ofNullable(knotContext.getFragments())
         .map(fragments ->
             Observable.fromIterable(fragments)
@@ -68,6 +78,12 @@ public class TemplateEngineKnotProxy extends AbstractKnotProxy {
                             "No engine named '" + fragmentContext.getStrategy() + "' found.");
                       }
                     })
+                .map(fragmentContext -> {
+                  if (isDebugMode) {
+                    debugModeDecorator.applyDebugMode(fragmentContext);
+                  }
+                  return fragmentContext;
+                })
                 .toList()
         ).orElse(Single.just(Collections.emptyList()))
         .map(result -> createSuccessResponse(knotContext))
@@ -88,6 +104,10 @@ public class TemplateEngineKnotProxy extends AbstractKnotProxy {
     return new KnotContext()
         .setClientRequest(knotContext.getClientRequest())
         .setClientResponse(errorResponse);
+  }
+
+  private boolean isDebugOn(KnotContext knotContext) {
+    return options.isDebugMode() && knotContext.getClientRequest().getParams().contains("debug");
   }
 
   private KnotContext createSuccessResponse(KnotContext inputContext) {

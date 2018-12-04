@@ -37,6 +37,10 @@ Sets the template engine name that identifies this strategy. This name must be e
 +++
 Sets the EB address of the verticle. Default is `knotx.knot.te`
 +++
+|[[debugMode]]`debugMode`|`Boolean`|
++++
+Sets the debug mode value.
++++
 |[[defaultEngine]]`defaultEngine`|`String`|
 +++
 Sets the default template engine name. This template engine will be used every time no strategy
@@ -44,6 +48,7 @@ Sets the default template engine name. This template engine will be used every t
 +++
 |[[engines]]`engines`|`Array of link:cheatsheets.adoc#TemplateEngineEntry[TemplateEngineEntry]`|
 +++
-List of the Template Engine Entries. Each item contains definition of new Template Engine strategy.
+List of the Template Engine Entries. Each item contains definition of new Template Engine
+ strategy.
 +++
 |===

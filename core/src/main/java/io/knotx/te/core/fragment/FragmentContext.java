@@ -24,15 +24,16 @@ import org.jsoup.nodes.Element;
 
 public class FragmentContext {
 
-  private static final String TE_STRATEGY =
-      ".*te-strategy.*";
+  private static final String TE_STRATEGY = ".*te-strategy.*";
 
-  private Fragment fragment;
-  private String strategy;
+  private final Fragment fragment;
+  private final String strategy;
+  private final String originalSnippet;
 
   private FragmentContext(Fragment fragment, String strategy) {
     this.fragment = fragment;
     this.strategy = strategy;
+    this.originalSnippet = fragment.content();
   }
 
   /**
@@ -72,4 +73,10 @@ public class FragmentContext {
     return strategy;
   }
 
+  /**
+   * @return original snippet content before applying TE strategy
+   */
+  String getOriginalSnippet() {
+    return originalSnippet;
+  }
 }

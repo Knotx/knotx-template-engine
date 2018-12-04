@@ -1,0 +1,35 @@
+<section class="container">
+  <span class="tooltiptext"><button id="debugModalOpen%%DEBUG-UID%%">Show debug data</button></span>
+  <!-- START: final markup -->
+  %%DEBUG-FINAL-MARKUP%%
+  <!-- END: final markup -->
+  <!-- START: the modal -->
+  <div id="debugModal%%DEBUG-UID%%" class="modal">
+    <div class="modal-content">
+      <span class="close" id="debugModalClose%%DEBUG-UID%%">&times;</span>
+      <table style="width:100%">
+        <tr>
+          <th>Snippet</th>
+          <th>Data</th>
+        </tr>
+        <tr>
+          <td>
+            <!-- START: the snippet code -->
+            <xmp>
+%%DEBUG-RAW-SNIPPET%%
+            </xmp>
+            <!-- END: the snippet code -->
+          </td>
+          <td>
+            <!-- START: the data display -->
+            <xmp>
+%%DEBUG-RAW-DATA%%
+            </xmp>
+            <!-- END: the data display -->
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <!-- END: the modal -->
+</section>

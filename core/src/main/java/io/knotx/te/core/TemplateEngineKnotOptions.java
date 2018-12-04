@@ -34,6 +34,7 @@ public class TemplateEngineKnotOptions {
   private String address;
   private String defaultEngine;
   private List<TemplateEngineEntry> engines;
+  private boolean debugMode;
 
   /**
    * Default constructor
@@ -124,13 +125,32 @@ public class TemplateEngineKnotOptions {
   }
 
   /**
-   * List of the Template Engine Entries. Each item contains definition of new Template Engine strategy.
+   * List of the Template Engine Entries. Each item contains definition of new Template Engine
+   * strategy.
    *
    * @param engines - list of engines.
    * @return reference to this, so the API can be used fluently
    */
   public TemplateEngineKnotOptions setEngines(List<TemplateEngineEntry> engines) {
     this.engines = engines;
+    return this;
+  }
+
+  /**
+   * @return the value of the debug mode flag
+   */
+  public boolean isDebugMode() {
+    return debugMode;
+  }
+
+  /**
+   * Sets the debug mode value.
+   *
+   * @param debugMode - debug mode
+   * @return reference to this, so the API can be used fluently
+   */
+  public TemplateEngineKnotOptions setDebugMode(boolean debugMode) {
+    this.debugMode = debugMode;
     return this;
   }
 }
