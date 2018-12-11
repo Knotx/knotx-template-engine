@@ -26,12 +26,14 @@ import io.knotx.te.core.fragment.FragmentContext;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import org.apache.commons.lang3.tuple.Pair;
 
 public class TemplateEngineKnotProxy extends AbstractKnotProxy {
 
@@ -55,9 +57,7 @@ public class TemplateEngineKnotProxy extends AbstractKnotProxy {
   @Override
   protected Single<KnotContext> processRequest(KnotContext knotContext) {
     boolean isDebugMode = isDebugOn(knotContext);
-    if (isDebugMode) {
-      debugModeDecorator.addGlobalStyle(knotContext);
-    }
+    final JsonObject debugData = new JsonObject();
     return Optional.ofNullable(knotContext.getFragments())
         .map(fragments ->
             Observable.fromIterable(fragments)
@@ -80,13 +80,21 @@ public class TemplateEngineKnotProxy extends AbstractKnotProxy {
                     })
                 .map(fragmentContext -> {
                   if (isDebugMode) {
-                    debugModeDecorator.applyDebugMode(fragmentContext);
+                    final Pair<String, Object> fragmentDebug = debugModeDecorator
+                        .wrapFragment(fragmentContext);
+                    debugData.put(fragmentDebug.getKey(), fragmentDebug.getValue());
                   }
                   return fragmentContext;
                 })
                 .toList()
         ).orElse(Single.just(Collections.emptyList()))
         .map(result -> createSuccessResponse(knotContext))
+        .doOnSuccess(context -> {
+          if (isDebugMode) {
+            final String debugScript = "var debugData = " + debugData.encodePrettily() + ";";
+            debugModeDecorator.addDebugAssetsAndData(context, debugScript);
+          }
+        })
         .onErrorReturn(error -> processError(knotContext, error));
   }
 

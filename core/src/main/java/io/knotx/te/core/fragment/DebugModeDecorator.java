@@ -2,6 +2,7 @@ package io.knotx.te.core.fragment;
 
 import io.knotx.dataobjects.Fragment;
 import io.knotx.dataobjects.KnotContext;
+import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import java.io.IOException;
@@ -9,60 +10,62 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.tuple.Pair;
 
 public class DebugModeDecorator {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DebugModeDecorator.class);
-  private static final String HEAD_SECTION_END = "</head>";
+  private static final String BODY_SECTION_END = "</body>";
 
-  private String globalStyle;
-  private String fragmentSectionTemplate;
-  private String fragmentJsTemplate;
+  private String debugCss;
+  private String debugJs;
 
   public void init() {
     ClassLoader classLoader = getClass().getClassLoader();
     try (
-        InputStream styleIS = classLoader.getResourceAsStream("debug-style.html");
-        InputStream fragmentIS = classLoader.getResourceAsStream("debug-section.html");
-        InputStream jsIS = classLoader.getResourceAsStream("debug-js.html")
+        InputStream debugCssIs = classLoader.getResourceAsStream("debug.css");
+        InputStream debugJsIs = classLoader.getResourceAsStream("debug.js")
     ) {
-      globalStyle = IOUtils.toString(styleIS, StandardCharsets.UTF_8);
-      fragmentSectionTemplate = IOUtils.toString(fragmentIS, StandardCharsets.UTF_8);
-      fragmentJsTemplate = IOUtils.toString(jsIS, StandardCharsets.UTF_8);
+      debugCss = IOUtils.toString(debugCssIs, StandardCharsets.UTF_8);
+      debugJs = IOUtils.toString(debugJsIs, StandardCharsets.UTF_8);
     } catch (IOException e) {
       LOGGER.error("Failed to load file!", e);
     }
   }
 
-  public void addGlobalStyle(KnotContext knotContext) {
+  public void addDebugAssetsAndData(KnotContext knotContext, String debugData) {
     knotContext.getFragments().stream()
-        .filter(fragment -> fragment.content().contains(HEAD_SECTION_END))
+        .filter(fragment -> fragment.content().contains(BODY_SECTION_END))
         .findFirst()
         .ifPresent(fragment -> fragment.content(
-            fragment.content().replace(HEAD_SECTION_END, globalStyle + HEAD_SECTION_END)));
+            fragment.content().replace(BODY_SECTION_END,
+                addAsScript(debugData)
+                    + addAsStyle(debugCss)
+                    + addAsScript(debugJs)
+                    + BODY_SECTION_END)));
   }
 
-  public void applyDebugMode(FragmentContext fragmentContext) {
+  private String addAsScript(String script) {
+    return "<script>" + script + "</script>";
+  }
+
+  private String addAsStyle(String css) {
+    return "<style>" + css + "</style>";
+  }
+
+  public Pair<String, Object> wrapFragment(FragmentContext fragmentContext) {
+    // FixMe - replace with fragment ID when it will be available
     final String fragmentUID = UUID.randomUUID().toString();
     final Fragment fragment = fragmentContext.fragment();
-    fragment.content("<!-- DEBUG STARTED -->"
-        + wrap(fragmentUID, fragmentContext)
-        + prepareJS(fragmentUID)
-        + "<!-- DEBUG ENDED -->");
-  }
+    fragment.content("<!-- " + fragmentUID + " -->"
+        + fragment.content()
+        + "<!-- " + fragmentUID + " -->");
 
-  private String wrap(String fragmentUID, FragmentContext fragmentContext) {
-    final Fragment fragment = fragmentContext.fragment();
-    return fragmentSectionTemplate
-        .replaceAll("%%DEBUG-UID%%", fragmentUID)
-        .replace("%%DEBUG-FINAL-MARKUP%%", fragment.content())
-        .replace("%%DEBUG-RAW-SNIPPET%%", fragmentContext.getOriginalSnippet())
-        .replace("%%DEBUG-RAW-DATA%%", fragment.context().encodePrettily());
-  }
+    final JsonObject debugData = new JsonObject();
+    debugData.put("snippet", fragmentContext.getOriginalSnippet());
+    debugData.put("data", fragment.context());
 
-
-  private String prepareJS(String fragmentUID) {
-    return fragmentJsTemplate.replaceAll("%%DEBUG-UID%%", fragmentUID);
+    return Pair.of(fragmentUID, debugData);
   }
 
 }
