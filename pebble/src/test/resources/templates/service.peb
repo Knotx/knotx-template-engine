@@ -1,0 +1,21 @@
+{% for item in items %}
+    <div class="product">
+        {% for swatch in item.swatches %}
+            {% set links = swatch.all_swatch_links | split('\|') %}
+            {% set ids = swatch.all_swatch_ids | split('\|') %}
+            {% set images = swatch.all_swatch_images | split('\|') %}
+            <ul class="product-swatches">
+                {% for link in links %}
+                    <li class="product-swatch-{{ ids[loop.index] }}{% if loop.first %} is-active{% endif %}">
+                        <p>{{ loop.index + 1 }}</p>
+                        <a href="{{ link }}">
+                            <img src="{{ images[loop.index] }}" />
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </div>
+{% endfor %}
+
+{# This is a comment and will not be printed #}

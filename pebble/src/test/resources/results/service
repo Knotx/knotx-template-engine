@@ -1,0 +1,42 @@
+<div class="product">
+  <ul class="product-swatches">
+    <li class="product-swatch-PX1 is-active">
+      <p>1</p>
+      <a href="http://my-website.com/products/1">
+        <img src="http://my-images.com/swatch1.jpg" />
+      </a>
+    </li>
+    <li class="product-swatch-PC2">
+      <p>2</p>
+      <a href="http://my-website.com/products/2">
+        <img src="http://my-images.com/swatch2.jpg" />
+      </a>
+    </li>
+    <li class="product-swatch-PG1">
+      <p>3</p>
+      <a href="http://my-website.com/products/3">
+        <img src="http://my-images.com/swatch3.jpg" />
+      </a>
+    </li>
+  </ul>
+  <ul class="product-swatches">
+    <li class="product-swatch-A1 is-active">
+      <p>1</p>
+      <a href="http://my-website.com/products/1">
+        <img src="http://my-images.com/swatch1.jpg" />
+      </a>
+    </li>
+    <li class="product-swatch-A2">
+      <p>2</p>
+      <a href="http://my-website.com/products/2">
+        <img src="http://my-images.com/swatch2.jpg" />
+      </a>
+    </li>
+    <li class="product-swatch-A3">
+      <p>3</p>
+      <a href="http://my-website.com/products/3">
+        <img src="http://my-images.com/swatch3.jpg" />
+      </a>
+    </li>
+  </ul>
+</div>

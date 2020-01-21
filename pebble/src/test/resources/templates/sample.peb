@@ -1,0 +1,4 @@
+  First: {{ sample.result.first }}
+  Second: {{sample.result.second.foo }}
+  Array: {% for this in sample.arr %} {{this}} {% endfor %}
+  Interpolation & Upper Case filter: {{ "Interpolated #{ sample.result.first }" | upper }}

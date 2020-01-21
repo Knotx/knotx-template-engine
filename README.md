@@ -53,8 +53,8 @@ together with Transition.
 
 ## How to use
 > Please note that example below uses Handlebars to process the markup. Read more about it below.
-> You may read about it in the [Handlebars module docs](https://github.com/Knotx/knotx-template-engine/tree/master/handlebars)
-> If you want to use another template engine, please refer to [core module docs](https://github.com/Knotx/knotx-template-engine/tree/master/core).
+> You may read about it in the [Handlebars module docs](https://github.com/Knotx/knotx-template-engine/tree/master/handlebars).
+> For using a different template engine, refer to [pebble module docs]() or [core module docs](https://github.com/Knotx/knotx-template-engine/tree/master/core).
 
 Define a module that creates `io.knotx.te.core.TemplateEngineKnot` instance.
 
@@ -92,9 +92,10 @@ Now you may use it in Fragment's Tasks.
 Example configuration is available in the [conf](https://github.com/Knotx/knotx-template-engine/blob/master/conf)
 section of this module.
 
-## Handlebars Template Engine Strategy
-Currently this repository delivers `handlebars` TE strategy implementation.
-You may read more bout it in the [module docs](https://github.com/Knotx/knotx-template-engine/tree/master/handlebars).
+## OOTB Template Engine Strategies
+Currently this repository delivers `handlebars` and `pebble` TE strategies implementation.
+You may read more in the [handlebars](https://github.com/Knotx/knotx-template-engine/tree/master/handlebars) and [pebble](https://github.com/Knotx/knotx-template-engine/tree/master/pebble) module docs.
+
 
 ### How to create a custom Template Engine Strategy
 Read more about it in the [API module docs](https://github.com/Knotx/knotx-template-engine/tree/master/api).

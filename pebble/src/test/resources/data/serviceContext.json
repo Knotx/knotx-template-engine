@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "swatches": [
+        {
+          "all_swatch_ids": "PX1|PC2|PG1",
+          "all_swatch_links": "http://my-website.com/products/1|http://my-website.com/products/2|http://my-website.com/products/3",
+          "all_swatch_images": "http://my-images.com/swatch1.jpg|http://my-images.com/swatch2.jpg|http://my-images.com/swatch3.jpg",
+          "all_swatch_names": "Product 1|Product 2|Product 3",
+          "description": "Sample product 1 description",
+          "title": "My product 1"
+        },
+        {
+          "all_swatch_ids": "A1|A2|A3",
+          "all_swatch_links": "http://my-website.com/products/1|http://my-website.com/products/2|http://my-website.com/products/3",
+          "all_swatch_images": "http://my-images.com/swatch1.jpg|http://my-images.com/swatch2.jpg|http://my-images.com/swatch3.jpg",
+          "all_swatch_names": "Product 1|Product 2|Product 3",
+          "description": "Sample product 2 description",
+          "title": "My product 2"
+        }
+      ]
+    }
+  ]
+}

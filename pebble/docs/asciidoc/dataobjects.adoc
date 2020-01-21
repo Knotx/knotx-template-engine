@@ -1,0 +1,80 @@
+= Cheatsheets
+
+[[PebbleEngineOptions]]
+== PebbleEngineOptions
+
+++++
+ Describes Pebble Knot configuration. Contains cache settings and Pebble Engine settings.
+++++
+'''
+
+[cols=">25%,25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[cacheKeyAlgorithm]]`@cacheKeyAlgorithm`|`String`|+++
+Sets the algorithm used to build a hash from the Pebble snippet. The hash is to be used as a
+ cache key.
+
+ The name should be a standard Java Security name (such as "SHA", "MD5", and so on).
++++
+|[[cacheSize]]`@cacheSize`|`Number (Long)`|+++
+Sets the size of the cache. After reaching the max size, new elements will replace the oldest
+ one.
++++
+|[[syntax]]`@syntax`|`link:dataobjects.html#PebbleEngineSyntaxOptions[PebbleEngineSyntaxOptions]`|+++
+Sets syntax options including custom Pebble markers' delimiters.
++++
+|===
+
+[[PebbleEngineSyntaxOptions]]
+== PebbleEngineSyntaxOptions
+
+++++
+ Describes custom syntax for the Pebble Engine.
+++++
+'''
+
+[cols=">25%,25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[delimiterCommentClose]]`@delimiterCommentClose`|`String`|+++
+Defaults to <code>#}</code>
++++
+|[[delimiterCommentOpen]]`@delimiterCommentOpen`|`String`|+++
+Defaults to <code>{#</code>
++++
+|[[delimiterExecuteClose]]`@delimiterExecuteClose`|`String`|+++
+Defaults to <code>%}</code>
++++
+|[[delimiterExecuteOpen]]`@delimiterExecuteOpen`|`String`|+++
+Defaults to <code>{%</code>
++++
+|[[delimiterPrintClose]]`@delimiterPrintClose`|`String`|+++
+Defaults to <code>}}</code>
++++
+|[[delimiterPrintOpen]]`@delimiterPrintOpen`|`String`|+++
+Defaults to <code>{{</code>
++++
+|[[literalDecimalTreatedAsInteger]]`@literalDecimalTreatedAsInteger`|`Boolean`|+++
+Sets whether a literal decimal should be treated as Integer. <br> If false, all literal
+ decimals will be treated as Long. <br> A literal decimal is considered a numeric string without
+ a fraction separator (a dot).<br> Defaults to false.
++++
+|[[newLineTrimming]]`@newLineTrimming`|`Boolean`|+++
+Sets whether a new line after a closing Pebble tag should be trimmed. Defaults to true.
++++
+|[[strictVariables]]`@strictVariables`|`Boolean`|+++
+Sets the Strict Mode of the Pebble Engine.<br> In Strict Mode, referencing a null or
+ non-existent variable or attribute will result in an exception. <br> When Strict Mode is
+ disabled, such variables/attributes will be rendered as empty.
+
+ Strict mode is disabled by default.
++++
+|[[whitespaceTrim]]`@whitespaceTrim`|`String`|+++
+Defaults to <code>-</code> Note: this is used for trimming whitespaces adjacent to a Pebble
+ tag, not inside the content rendered by it.
++++
+|===
+
