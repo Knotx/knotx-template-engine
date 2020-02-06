@@ -20,7 +20,7 @@ plugins {
   id("io.knotx.unit-test")
   id("io.knotx.jacoco")
 
-  id("org.nosphere.apache.rat") version "0.4.0"
+  id("org.nosphere.apache.rat") version "0.6.0"
 }
 
 description = "Knot.x Template Engine Integration Tests"
@@ -41,7 +41,7 @@ sourceSets.named("test") {
 
 tasks {
   named<RatTask>("rat") {
-    excludes.addAll("**/build/*", "**/out/*", "**/resources/*")
+    excludes.addAll(listOf("**/build/*", "**/out/*", "**/resources/*"))
   }
   getByName("build").dependsOn("rat")
 }
