@@ -25,6 +25,7 @@ import io.knotx.fragments.api.Fragment;
 import io.knotx.te.api.TemplateEngine;
 import io.knotx.te.pebble.options.PebbleEngineOptions;
 import io.knotx.te.pebble.options.PebbleEngineSyntaxOptions;
+import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import java.io.IOException;
@@ -34,6 +35,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * This class is registered with Service Provider Interface (see META-INF/services)
@@ -45,12 +47,14 @@ class PebbleTemplateEngine implements TemplateEngine {
   private final PebbleEngine pebbleEngine;
   private final Cache<String, PebbleTemplate> cache;
   private final MessageDigest digest;
+  private final String wrappingRootNodeName;
 
   PebbleTemplateEngine(PebbleEngineOptions options) {
     LOGGER.info("<{}> instance created", this.getClass().getSimpleName());
     this.pebbleEngine = createPebbleEngine(options.getSyntax());
     this.cache = createCache(options);
     this.digest = tryToCreateDigest(options);
+    this.wrappingRootNodeName = options.getSyntax().getWrappingRootNodeName();
   }
 
   @Override
@@ -75,13 +79,21 @@ class PebbleTemplateEngine implements TemplateEngine {
 
   private String tryToProcessOnEngine(PebbleTemplate template, Fragment fragment) {
     try {
-      Map<String, Object> context = JsonConverter.plainMapFrom(fragment.getPayload());
       StringWriter writer = new StringWriter();
-      template.evaluate(writer, context);
+      template.evaluate(writer, getContextFrom(fragment));
       return writer.toString();
     } catch (IOException e) {
       LOGGER.error("Could not apply context to fragment [{}]", fragment.abbreviate(), e);
       throw new IllegalStateException(e);
+    }
+  }
+
+  private Map<String, Object> getContextFrom(Fragment fragment) {
+    if(StringUtils.isBlank(wrappingRootNodeName)) {
+      return JsonConverter.plainMapFrom(fragment.getPayload());
+    } else {
+      JsonObject wrapper = new JsonObject().put(wrappingRootNodeName, fragment.getPayload());
+      return JsonConverter.plainMapFrom(wrapper);
     }
   }
 

@@ -1,0 +1,4 @@
+  First: {{ root['sample-test']['result-test']['first-test'] }}
+  Second: {{ root['sample-test']['result-test']['second-test']['foo-test'] }}
+  Array: {% for this in root['sample-test']['arr-test'] %} {{this}} {% endfor %}
+  Interpolation & Upper Case filter: {{ "Interpolated #{ root['sample-test']['result-test']['first-test'] }" | upper }}

@@ -1,0 +1,38 @@
+{
+  "sample-test": {
+    "result-test": {
+      "first-test": "First Message",
+      "second-test": {
+        "foo-test": "Very Long Second Foo Message !! 2 &&%^$"
+      }
+    },
+    "arr-test": [
+      1,
+      2,
+      3,
+      "foo",
+      "bar",
+      true
+    ]
+  },
+  "items-test": [
+    {
+      "title-test": "First item",
+      "content": "First item's content",
+      "category": "Category 1"
+    },
+    {
+      "title-test": "Second item",
+      "content": "Second item's content",
+      "category": "Category 2"
+    },
+    {
+      "title-test": "Third item",
+      "content": "Third item's content",
+      "category": "Undefined"
+    },
+    {
+      "title-test": "Item without category or content"
+    }
+  ]
+}

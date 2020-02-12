@@ -36,12 +36,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class PebbleTemplateEngineTest {
 
   private static final String TEMPLATE_EMPTY = "templates/empty.peb";
   private static final String TEMPLATE_SAMPLE = "templates/sample.peb";
   private static final String TEMPLATE_SERVICE = "templates/service.peb";
+  private static final String TEMPLATE_VARIABLES_WITH_DASHES = "templates/variablesWithDashes.peb";
   private static final String TEMPLATE_SERVICE_CUSTOM_SYNTAX = "templates/serviceCustomSyntax.peb";
   private static final String TEMPLATE_UNDEFINED_HELPER = "templates/undefinedHelper.peb";
 
@@ -49,6 +51,7 @@ class PebbleTemplateEngineTest {
   private static final String CONTEXT_SAMPLE = "data/sampleContext.json";
   private static final String CONTEXT_SAMPLE_MISSING_FIELD = "data/sampleContextMissingField.json";
   private static final String CONTEXT_SERVICE = "data/serviceContext.json";
+  private static final String CONTEXT_VARIABLES_WITH_DASHES = "data/variablesWithDashesContext.json";
 
   private static final String RESULT_EMPTY_CONTENT = "results/emptyContent";
   private static final String RESULT_EMPTY_CONTEXT = "results/emptyContext";
@@ -187,6 +190,21 @@ class PebbleTemplateEngineTest {
     final Fragment fragment = mockFragmentFromFile(TEMPLATE_SERVICE_CUSTOM_SYNTAX, CONTEXT_SERVICE);
     final String result = templateEngine.process(fragment).trim();
     final String expected = FileReader.readText(RESULT_SERVICE).trim();
+
+    assertEqualsIgnoreWhitespace(expected, result);
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = { "true", "false" })
+  @DisplayName("Expect template with variables with dashes to be filled properly when wrapping root node is set")
+  void renderTemplateWithVariablesWithDashes(String strictMode) throws IOException {
+    options.getSyntax().setWrappingRootNodeName("root");
+    options.getSyntax().setStrictVariables(Boolean.parseBoolean(strictMode));
+    final PebbleTemplateEngine templateEngine = new PebbleTemplateEngine(options);
+
+    final Fragment fragment = mockFragmentFromFile(TEMPLATE_VARIABLES_WITH_DASHES, CONTEXT_VARIABLES_WITH_DASHES);
+    final String result = templateEngine.process(fragment).trim();
+    final String expected = FileReader.readText(RESULT_SAMPLE).trim();
 
     assertEqualsIgnoreWhitespace(expected, result);
   }

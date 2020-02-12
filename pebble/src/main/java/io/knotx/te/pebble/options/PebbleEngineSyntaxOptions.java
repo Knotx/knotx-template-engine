@@ -17,6 +17,7 @@ package io.knotx.te.pebble.options;
 
 import io.vertx.codegen.annotations.DataObject;
 import io.vertx.core.json.JsonObject;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Describes custom syntax for the Pebble Engine.
@@ -39,6 +40,8 @@ public class PebbleEngineSyntaxOptions {
   private String delimiterPrintOpen = "{{";
   private String delimiterPrintClose = "}}";
   private String whitespaceTrim = "-";
+
+  private String wrappingRootNodeName = StringUtils.EMPTY;
 
   public PebbleEngineSyntaxOptions() {
   }
@@ -223,6 +226,22 @@ public class PebbleEngineSyntaxOptions {
     this.whitespaceTrim = whitespaceTrim;
   }
 
+  public String getWrappingRootNodeName() {
+    return wrappingRootNodeName;
+  }
+
+  /**
+   * Set wrapping root node name. Allows access to variables with dash <code>-</code> symbol. E.g.
+   * if root node name is rootNode and field is data-dashed, use <code>{{ rootNode['data-dashed']
+   * }}</code> Defaults to empty string = no wrapping is performed.
+   *
+   * @param wrappingRootNodeName the name of the wrapping node. If empty string, the context will be
+   * left unwrapped.
+   */
+  public void setWrappingRootNodeName(String wrappingRootNodeName) {
+    this.wrappingRootNodeName = wrappingRootNodeName;
+  }
+
   @Override
   public String toString() {
     return "PebbleEngineSyntaxOptions{" +
@@ -236,6 +255,7 @@ public class PebbleEngineSyntaxOptions {
         ", delimiterPrintOpen='" + delimiterPrintOpen + '\'' +
         ", delimiterPrintClose='" + delimiterPrintClose + '\'' +
         ", whitespaceTrim='" + whitespaceTrim + '\'' +
+        ", wrappingRootNodeName='" + wrappingRootNodeName + '\'' +
         '}';
   }
 }

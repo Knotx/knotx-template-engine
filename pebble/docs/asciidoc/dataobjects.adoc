@@ -76,5 +76,10 @@ Sets the Strict Mode of the Pebble Engine.<br> In Strict Mode, referencing a nul
 Defaults to <code>-</code> Note: this is used for trimming whitespaces adjacent to a Pebble
  tag, not inside the content rendered by it.
 +++
+|[[wrappingRootNodeName]]`@wrappingRootNodeName`|`String`|+++
+Set wrapping root node name. Allows access to variables with dash <code>-</code> symbol. E.g.
+ if root node name is rootNode and field is data-dashed, use <code>{{ rootNode['data-dashed']
+ }}</code> Defaults to empty string = no wrapping is performed.
++++
 |===
 
