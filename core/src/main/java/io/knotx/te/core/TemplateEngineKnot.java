@@ -17,8 +17,8 @@ package io.knotx.te.core;
 
 import io.knotx.fragments.api.Fragment;
 import io.knotx.fragments.handler.api.Knot;
-import io.knotx.fragments.handler.api.domain.FragmentContext;
-import io.knotx.fragments.handler.api.domain.FragmentResult;
+import io.knotx.fragments.engine.api.node.single.FragmentContext;
+import io.knotx.fragments.engine.api.node.single.FragmentResult;
 import io.knotx.te.api.TemplateEngine;
 import io.reactivex.Single;
 import io.vertx.core.AsyncResult;
@@ -44,7 +44,7 @@ public class TemplateEngineKnot extends AbstractVerticle implements Knot {
   private TemplateEngine templateEngine;
 
   @Override
-  public void apply(io.knotx.fragments.handler.api.domain.FragmentContext fragmentContext,
+  public void apply(FragmentContext fragmentContext,
       Handler<AsyncResult<FragmentResult>> result) {
     Single.just(fragmentContext)
         .map(FragmentContext::getFragment)
