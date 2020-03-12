@@ -17,8 +17,8 @@ package io.knotx.te.core;
 
 import io.knotx.fragments.api.Fragment;
 import io.knotx.fragments.handler.api.Knot;
-import io.knotx.fragments.engine.api.node.single.FragmentContext;
-import io.knotx.fragments.engine.api.node.single.FragmentResult;
+import io.knotx.fragments.api.FragmentContext;
+import io.knotx.fragments.api.FragmentResult;
 import io.knotx.te.api.TemplateEngine;
 import io.reactivex.Single;
 import io.vertx.core.AsyncResult;
