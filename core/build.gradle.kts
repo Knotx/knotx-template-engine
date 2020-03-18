@@ -29,7 +29,7 @@ dependencies {
   implementation(platform("io.knotx:knotx-dependencies:${project.version}"))
 
   api(project(":knotx-template-engine-api"))
-  api ("io.knotx:knotx-fragments-handler-api:${project.version}")
+  api ("io.knotx:knotx-fragments-action-api:${project.version}")
 
   implementation(group = "io.vertx", name = "vertx-core")
   implementation(group = "io.vertx", name = "vertx-service-proxy")
