@@ -20,7 +20,7 @@ plugins {
   id("io.knotx.unit-test")
   id("io.knotx.jacoco")
 
-  id("org.nosphere.apache.rat") version "0.6.0"
+  id("org.nosphere.apache.rat")
 }
 
 description = "Knot.x Template Engine Integration Tests"
@@ -32,6 +32,7 @@ dependencies {
   testImplementation(project(":knotx-template-engine-core"))
   testImplementation(project(":knotx-template-engine-handlebars"))
 
+  testImplementation("io.knotx:knotx-junit5:${project.version}")
   testImplementation("io.knotx:knotx-launcher:${project.version}")
 }
 

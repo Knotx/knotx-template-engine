@@ -22,7 +22,7 @@ plugins {
   id("io.knotx.codegen")
   id("io.knotx.jacoco")
 
-  id("org.nosphere.apache.rat") version "0.6.0"
+  id("org.nosphere.apache.rat")
 }
 
 dependencies {
