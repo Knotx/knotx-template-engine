@@ -39,7 +39,7 @@ config.handlebars {
 
 ```
 
-In the [Fragment's Handler actions section](https://github.com/Knotx/knotx-fragments/tree/master/handler/core#actions) 
+In the [Fragment Node Action](https://github.com/Knotx/knotx-fragments/tree/master/task/factory/default#action-node-factory) we
 define a separate Action for each TE Knot:
 ```hocon
 actions {
