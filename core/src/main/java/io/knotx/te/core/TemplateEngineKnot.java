@@ -54,12 +54,12 @@ public class TemplateEngineKnot extends AbstractVerticle implements Knot {
         .subscribe(
             fragmentResult -> {
               LOGGER.debug("Processing ends with result [{}]", fragmentResult);
-              Future.succeededFuture(fragmentResult).setHandler(result);
+              Future.succeededFuture(fragmentResult).onComplete(result);
             },
             error -> {
               LOGGER.error("Processing ends with exception!", error);
               Future<FragmentResult> future = Future.failedFuture(error);
-              future.setHandler(result);
+              future.onComplete(result);
             }
         );
   }
