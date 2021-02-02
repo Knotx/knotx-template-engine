@@ -28,10 +28,6 @@ allprojects {
         gradlePluginPortal()
     }
     pluginManager.withPlugin("java") {
-        java {
-            toolchain {
-                languageVersion.set(JavaLanguageVersion.of(8))
-            }
-        }
+
     }
 }
