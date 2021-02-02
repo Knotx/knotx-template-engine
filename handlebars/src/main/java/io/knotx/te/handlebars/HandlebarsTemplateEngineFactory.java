@@ -29,6 +29,6 @@ public class HandlebarsTemplateEngineFactory implements TemplateEngineFactory {
 
   @Override
   public TemplateEngine create(Vertx vertx, JsonObject config) {
-    return new HandlebarsTemplateEngine(vertx, new HandlebarsEngineOptions(config));
+    return new HandlebarsTemplateEngine(new HandlebarsEngineOptions(config));
   }
 }

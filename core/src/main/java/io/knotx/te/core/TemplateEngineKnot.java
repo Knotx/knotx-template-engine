@@ -87,7 +87,7 @@ public class TemplateEngineKnot extends AbstractVerticle implements Knot {
   }
 
   private FragmentResult handleSuccessProcessing(Fragment fragment) {
-    return new FragmentResult(fragment, FragmentResult.SUCCESS_TRANSITION);
+    return FragmentResult.success(fragment);
   }
 
   private void traceFragment(Fragment fragment) {

@@ -21,7 +21,6 @@ import static org.mockito.Mockito.when;
 import io.knotx.fragments.api.Fragment;
 import io.knotx.junit5.util.FileReader;
 import io.vertx.core.json.JsonObject;
-import io.vertx.reactivex.core.Vertx;
 import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,10 +28,6 @@ import org.mockito.Mockito;
 
 class HandlebarsTemplateEngineTest {
 
-  /**
-   * null, HandlebarsTemplateEngine does not use Vert.x
-   */
-  private Vertx vertx;
   private HandlebarsEngineOptions options;
 
   @BeforeEach
@@ -42,7 +37,7 @@ class HandlebarsTemplateEngineTest {
 
   @Test
   void process_whenDefaultOptions_expectMarkup() throws IOException {
-    final HandlebarsTemplateEngine templateEngine = new HandlebarsTemplateEngine(vertx, options);
+    final HandlebarsTemplateEngine templateEngine = new HandlebarsTemplateEngine(options);
 
     final Fragment fragment = mockFragmentFromFile("templates/simple.hbs",
         "data/sampleContext.json");
@@ -54,7 +49,7 @@ class HandlebarsTemplateEngineTest {
   @Test
   void process_whenCustomDelimiter_expectMarkup() throws IOException {
     options.setStartDelimiter("<&").setEndDelimiter("&>");
-    final HandlebarsTemplateEngine templateEngine = new HandlebarsTemplateEngine(vertx, options);
+    final HandlebarsTemplateEngine templateEngine = new HandlebarsTemplateEngine(options);
 
     final Fragment fragment = mockFragmentFromFile("templates/simple-customDelimiter.hbs",
         "data/sampleContext.json");
@@ -65,7 +60,7 @@ class HandlebarsTemplateEngineTest {
 
   @Test
   void process_whenEmptyContext_expectMarkup() throws IOException {
-    final HandlebarsTemplateEngine templateEngine = new HandlebarsTemplateEngine(vertx, options);
+    final HandlebarsTemplateEngine templateEngine = new HandlebarsTemplateEngine(options);
     final Fragment fragment = mockFragmentFromFile("templates/simple.hbs",
         "data/emptyContext.json");
     final String result = templateEngine.process(fragment).trim();
@@ -75,7 +70,7 @@ class HandlebarsTemplateEngineTest {
 
   @Test
   void process_whenEmptyContent_expectMarkup() throws IOException {
-    final HandlebarsTemplateEngine templateEngine = new HandlebarsTemplateEngine(vertx, options);
+    final HandlebarsTemplateEngine templateEngine = new HandlebarsTemplateEngine(options);
     final Fragment fragment = mockFragmentFromFile("templates/empty.hbs",
         "data/sampleContext.json");
     final String result = templateEngine.process(fragment).trim();
@@ -85,7 +80,7 @@ class HandlebarsTemplateEngineTest {
 
   @Test
   void process_whenUndefinedHbsHelperSpotted_expectMarkup() throws IOException {
-    final HandlebarsTemplateEngine templateEngine = new HandlebarsTemplateEngine(vertx, options);
+    final HandlebarsTemplateEngine templateEngine = new HandlebarsTemplateEngine(options);
     final Fragment fragment = mockFragmentFromFile("templates/undefinedHelper.hbs",
         "data/sampleContext.json");
     final String result = templateEngine.process(fragment).trim();

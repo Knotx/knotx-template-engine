@@ -24,7 +24,6 @@ import io.knotx.fragments.api.Fragment;
 import io.knotx.te.api.TemplateEngine;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
-import io.vertx.reactivex.core.Vertx;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -36,11 +35,11 @@ class HandlebarsTemplateEngine implements TemplateEngine {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(HandlebarsTemplateEngine.class);
 
-  private Handlebars handlebars;
-  private Cache<String, Template> cache;
-  private MessageDigest digest;
+  private final Handlebars handlebars;
+  private final Cache<String, Template> cache;
+  private final MessageDigest digest;
 
-  HandlebarsTemplateEngine(Vertx vertx, HandlebarsEngineOptions options) {
+  HandlebarsTemplateEngine(HandlebarsEngineOptions options) {
     LOGGER.info("<{}> instance created", this.getClass().getSimpleName());
     this.handlebars = createHandlebars(options);
     this.cache = CacheBuilder.newBuilder()
@@ -103,7 +102,6 @@ class HandlebarsTemplateEngine implements TemplateEngine {
       newHandlebars.registerHelper(helper.getName(), helper);
       LOGGER.info("Registered custom Handlebars helper: {}", helper.getName());
     });
-
     return newHandlebars;
   }
 
