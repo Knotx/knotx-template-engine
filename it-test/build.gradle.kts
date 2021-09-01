@@ -38,10 +38,3 @@ dependencies {
 sourceSets.named("test") {
   resources.srcDir("../conf")
 }
-
-tasks {
-  named<RatTask>("rat") {
-    excludes.addAll(listOf("**/build/*", "**/out/*", "**/resources/*"))
-  }
-  getByName("build").dependsOn("rat")
-}

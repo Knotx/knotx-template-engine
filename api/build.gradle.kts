@@ -31,12 +31,7 @@ dependencies {
   implementation(group = "io.vertx", name = "vertx-rx-java2")
 }
 
-tasks {
-  named<RatTask>("rat") {
-    excludes.addAll(listOf("*.md", "**/build/*", "**/out/*", "gradle.properties"))
-  }
-  getByName("build").dependsOn("rat")
-}
+tasks.getByName("sourcesJar").dependsOn("compileJava")
 
 publishing {
   publications {
