@@ -48,12 +48,9 @@ sourceSets.named("test") {
   resources.srcDir("../conf")
 }
 
-tasks {
-  named<RatTask>("rat") {
-    excludes.addAll(listOf("*.md", "**/build/*", "**/out/*", "**/generated/*", "**/*.adoc", "**/*.txt", "gradle.properties"))
-  }
-  getByName("build").dependsOn("rat")
-}
+tasks.getByName("sourcesJar").dependsOn("compileJava")
+
+tasks.withType<Jar> { duplicatesStrategy = DuplicatesStrategy.INCLUDE }
 
 publishing {
   publications {
