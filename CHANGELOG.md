@@ -4,6 +4,8 @@ All notable changes to `knotx-template-engine` will be documented in this file.
 ## Unreleased
 List of changes that are finished but not yet released in any final version.
                 
+## 2.3.1
+                
 ## 2.3.0
 - [PR-47](https://github.com/Knotx/knotx-template-engine/pull/47) - Upgrade to Vert.x `3.9.1`, replace deprecated `setHandler` with `onComplete`.
      
