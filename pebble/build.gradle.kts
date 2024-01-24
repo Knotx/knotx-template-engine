@@ -36,7 +36,7 @@ dependencies {
   implementation(group = "io.vertx", name = "vertx-rx-java2")
   implementation(group = "com.google.guava", name = "guava")
   implementation(group = "org.apache.commons", name = "commons-lang3")
-  implementation(group = "io.pebbletemplates", name= "pebble", version = "3.1.2")
+  implementation(group = "io.pebbletemplates", name= "pebble", version = "3.2.2")
 
   testImplementation("io.knotx:knotx-junit5:${project.version}")
   testImplementation("org.junit.jupiter:junit-jupiter-params")

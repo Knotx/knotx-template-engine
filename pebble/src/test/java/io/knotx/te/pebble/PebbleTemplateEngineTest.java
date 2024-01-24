@@ -20,9 +20,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.google.common.util.concurrent.UncheckedExecutionException;
-import com.mitchellbosecke.pebble.error.AttributeNotFoundException;
-import com.mitchellbosecke.pebble.error.ParserException;
-import com.mitchellbosecke.pebble.error.RootAttributeNotFoundException;
+import io.pebbletemplates.pebble.error.AttributeNotFoundException;
+import io.pebbletemplates.pebble.error.ParserException;
+import io.pebbletemplates.pebble.error.RootAttributeNotFoundException;
 import io.knotx.fragments.api.Fragment;
 import io.knotx.junit5.util.FileReader;
 import io.knotx.te.pebble.options.PebbleEngineOptions;

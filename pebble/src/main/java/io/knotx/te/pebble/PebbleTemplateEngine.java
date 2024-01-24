@@ -17,9 +17,9 @@ package io.knotx.te.pebble;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import com.mitchellbosecke.pebble.PebbleEngine;
-import com.mitchellbosecke.pebble.loader.StringLoader;
-import com.mitchellbosecke.pebble.template.PebbleTemplate;
+import io.pebbletemplates.pebble.PebbleEngine;
+import io.pebbletemplates.pebble.loader.StringLoader;
+import io.pebbletemplates.pebble.template.PebbleTemplate;
 import io.knotx.commons.json.JsonConverter;
 import io.knotx.fragments.api.Fragment;
 import io.knotx.te.api.TemplateEngine;
