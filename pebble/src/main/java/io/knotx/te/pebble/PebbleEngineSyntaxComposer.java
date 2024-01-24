@@ -15,7 +15,7 @@
  */
 package io.knotx.te.pebble;
 
-import com.mitchellbosecke.pebble.lexer.Syntax;
+import io.pebbletemplates.pebble.lexer.Syntax;
 import io.knotx.te.pebble.options.PebbleEngineSyntaxOptions;
 
 final class PebbleEngineSyntaxComposer {
