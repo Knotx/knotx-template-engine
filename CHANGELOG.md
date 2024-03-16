@@ -3,6 +3,8 @@ All notable changes to `knotx-template-engine` will be documented in this file.
 
 ## Unreleased
 List of changes that are finished but not yet released in any final version.
+                
+## 2.4.0
 - [PR-59](https://github.com/Knotx/knotx-template-engine/pull/59) Upgrade Gradle to 7.6.3, Handlebars to 4.3.1, Pebble Templates to 3.2.2
 
 ## 2.3.1
